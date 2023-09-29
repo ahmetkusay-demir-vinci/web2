@@ -1,0 +1,20 @@
+### Create a pizza
+@baseUrl = http://localhost:3000
+
+POST {{baseUrl}}/films      
+Content-Type: application/json
+
+{
+    "title":"Star Wars: Episode 4",
+    "duration": 240,
+    "budget": 100,
+    "link":"findIt.com"
+}
+
+
+### Read all films
+GET {{baseUrl}}/films
+
+
+### Read all films with mininimum-duration=200
+GET {{baseUrl}}/films?minimum-duration=200
