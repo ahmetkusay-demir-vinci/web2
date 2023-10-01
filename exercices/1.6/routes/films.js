@@ -67,7 +67,7 @@ router.get('/:id', (req, res) => {
   console.log(`GET /films/${req.params.id}`);   //On récupère ce qui a été mis dans l'URL de la requête
 
   const indexOfFilmFound = films.findIndex((film) => film.id == req.params.id);  //On passe une fonction qui va être itéré sur chaque éléments de notre MENU (films)
-                                                                                 //On reg si l'id de la pizza correspond à l'id de l'URL
+                                                                                 //On reg si l'id du film correspond à l'id de l'URL
   if (indexOfFilmFound < 0) return res.sendStatus(404);   //Pas de pizza trouvé => Error 404
 
   res.json(films[indexOfFilmFound]);
@@ -118,6 +118,102 @@ router.post('/', (req, res) => {
 
   // On renvoie au client le film ajouté 
   res.json(newFilm);
+});
+
+
+
+// Delete a film from the menu based on its id
+router.delete('/:id', (req, res) => {
+  console.log(`DELETE /films/${req.params.id}`);
+
+  const foundIndex = films.findIndex(film => film.id == req.params.id);  // On récupère l'élément qu'on veut effacer et si on trouve pas d'élément avec l'identifiant passé en paramètre , la méthode renvoie -1
+
+  if (foundIndex < 0) return res.sendStatus(404);
+
+  const itemsRemovedFromFilms = films.splice(foundIndex, 1); // splice effacera 1 élément à partie de l'index trouvé 
+  const itemRemoved = itemsRemovedFromFilms[0]; // splice renvoie un tableau de tt les éléments supprimés
+                                                // Pour ça on cherche le 1 er élément dans le tableau et y en aura que 1 vu que l'id est unique 
+  res.json(itemRemoved); // On renvoie l'élément effacé
+});
+
+
+
+// Update one or more properties of a film identified by its id
+router.patch('/:id', function (req, res) {
+  console.log(`PATCH /films/${req.params.id}`);
+
+  const title = req?.body?.title;
+  const link = req?.body?.link;
+  const duration = req?.body?.duration;
+  const budget = req?.body?.budget;
+
+  // On va tester les paramètres que nous avons reçu
+  if (
+    !req.body ||
+    (title !== undefined && !title.trim()) ||
+    (link !== undefined && !link.trim()) ||
+    (duration !== undefined && (typeof req?.body?.duration !== 'number' || duration < 0)) ||
+    (budget !== undefined && (typeof req?.body?.budget !== 'number' || budget < 0))
+  )
+    return res.sendStatus(400);
+
+  const indexOfFilmFound = films.findIndex((film) => film.id == req.params.id); //On passe une fonction qui va être itéré sur chaque éléments de notre MENU (films)
+                                                                                //On reg si l'id du film correspond à l'id de l'URL
+
+  if (indexOfFilmFound < 0) return res.sendStatus(404);
+
+  const updatedFilm = {...films[indexOfFilmFound], ...req.body}; // On copie les propriétés de l'objet trouvé dans le tableau et on écrase les propriétés mise dans le body de la requête
+
+  films[indexOfFilmFound] = updatedFilm;
+
+  return res.json(updatedFilm);
+});
+
+
+
+
+// Update a film only if all properties are given or create it if it does not exist and the id is not existant
+router.put('/:id', function (req, res) {
+  const title = req?.body?.title;
+  const link = req?.body?.link;
+  const duration = req?.body?.duration;
+  const budget = req?.body?.budget;
+
+  if (
+    !req.body ||
+    !title ||
+    !title.trim() ||
+    !link ||
+    !link.trim() ||
+    duration === undefined ||
+    typeof req?.body?.duration !== 'number' ||
+    duration < 0 ||
+    budget === undefined ||
+    typeof req?.body?.budget !== 'number' ||
+    budget < 0
+  )
+    return res.sendStatus(400);
+
+  const id = req.params.id;
+  const indexOfFilmFound = films.findIndex((film) => film.id == id);
+
+  if (indexOfFilmFound < 0) {
+    const newFilm = { id, title, link, duration, budget };
+    films.push(newFilm);
+    return res.json(newFilm);
+  }
+
+  const filmPriorToChange = films[indexOfFilmFound];
+  const objectContainingPropertiesToBeUpdated = req.body;
+
+  const updatedFilm = {
+    ...filmPriorToChange,
+    ...objectContainingPropertiesToBeUpdated,
+  };
+
+  films[indexOfFilmFound] = updatedFilm;
+
+  return res.json(updatedFilm);
 });
 
 
