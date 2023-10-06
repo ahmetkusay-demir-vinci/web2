@@ -1,4 +1,4 @@
-### Create a pizza
+### Create a film
 @baseUrl = http://localhost:3000
 
 POST {{baseUrl}}/films      
