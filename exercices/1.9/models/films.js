@@ -4,8 +4,8 @@ const { parse, serialize } = require('../utils/json');
 const jsonDbPath = path.join(__dirname, '/../data/films.json');
 
 function readAllFilms(minimumDuration) {
-  const films = parse(jsonDbPath);
-
+  const films = parse(jsonDbPath); /* Lire une base de données JSON stocké dans jsonDbPath */
+                                   /* On a un tableau films */
   if (minimumDuration === undefined) return films;
 
   const minimumDurationAsNumber = Number(minimumDuration);
@@ -16,9 +16,9 @@ function readAllFilms(minimumDuration) {
 }
 
 function readOneFilm(id) {
-  const idAsNumber = Number(id);
-  const films = parse(jsonDbPath);
-  const indexOfFilmFound = films.findIndex((pizza) => pizza.id === idAsNumber);
+  const idAsNumber = Number(id);  /* Number permet de garatir d'avoir un type numérique */
+  const films = parse(jsonDbPath);  /* Tableau films */
+  const indexOfFilmFound = films.findIndex((pizza) => pizza.id === idAsNumber); /* Cherche dans le tableau l'indice qui correspond */
   if (indexOfFilmFound < 0) return undefined;
 
   return films[indexOfFilmFound];
@@ -35,7 +35,7 @@ function createOneFilm(title, link, duration, budget) {
     budget,
   };
 
-  films.push(createdPizza);
+  films.push(createdPizza); /* permet l'ajout dans le tableau */
 
   serialize(jsonDbPath, films);
 

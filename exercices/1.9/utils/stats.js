@@ -9,6 +9,7 @@ const requestStats = (req, res, next) => {
     .map((operation) => `- ${operation} : ${stats[operation]}`)
     .join('\n')}
         `;
+  // eslint-disable-next-line no-console
   console.log(statsMessage);
   next();
 };
