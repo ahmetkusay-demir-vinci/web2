@@ -1,0 +1,25 @@
+.container {
+    text-align: center;
+}
+
+h1 {
+    margin: 0 auto;
+}
+
+.conteneur {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Largeur totale de 80% de la page */
+    margin: 0 auto; /* Pour centrer le conteneur sur la page */
+  }
+  
+  .ma-classe {
+    flex: 1; /* Chaque image occupe une part égale de l'espace disponible */
+    padding: 10px;
+  }
+  
+  .ma-classe img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
