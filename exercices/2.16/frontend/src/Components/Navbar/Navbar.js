@@ -13,7 +13,7 @@ const Navbar = () => {
   const navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">myMovies</a>
+          <a class="navbar-brand" href="#">Add your brand here</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -31,11 +31,8 @@ const Navbar = () => {
                 <a class="nav-link" aria-current="page" href="#" data-uri="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/movies/add">Add movies</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/movies">View movies</a>
-              </li>
+                <a class="nav-link" href="#" data-uri="/new">New Page</a>
+              </li>                        
             </ul>
           </div>
         </div>

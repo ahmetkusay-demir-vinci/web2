@@ -2,8 +2,10 @@ import Navigate from '../Router/Navigate';
 import { addOneMovie } from '../../models/movies';
 
 const AddMoviePage = () => {
+  const main = document.querySelector('main');
+  
   const addMoviePage = `
-<div class="text-center">
+  <div class="text-center">
   <h3>Movies</h3>
 
   <p>Here you can find all movies</p>
@@ -53,7 +55,6 @@ const AddMoviePage = () => {
     </form>  
 </div>`;
 
-  const main = document.querySelector('main');
   main.innerHTML = addMoviePage;
 
   const myForm = document.querySelector('form');

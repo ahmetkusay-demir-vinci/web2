@@ -1,4 +1,7 @@
+import { clearPage } from "../../utils/render";
+
 const HomePage = () => {
+  clearPage();
   const main = document.querySelector('main');
 
   fetch('https://v2.jokeapi.dev/joke/Any?type=single')
